@@ -1,17 +1,23 @@
-## My Project
+# Debunking Amazon DynamoDB Myths.
 
-TODO: Fill this README out!
+Welcome to this repository, this is the official github repository that will be used to share the examples shared in the twitch series "Debunking Amazon DynamoDB Myths".
 
-Be sure to:
+In this `main` branch you will find only this Readme.md file! For each new episode that have available we will create a new branch. For example to find the code that was used during the second episode you will need to navigate to the [`episode-two-code`](https://gitlab.aws.dev/estserna/ddb-twitch-show/-/tree/episode-two-code) branch.
 
-* Change the title in this README
-* Edit your repository description on GitHub
+# Episode List
 
-## Security
-
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
-
-## License
-
-This library is licensed under the MIT-0 License. See the LICENSE file.
-
+|                       Episode                        | Name                                                                                                          |        Date        | Code Branch                                                                                   |
+| :--------------------------------------------------: | :------------------------------------------------------------------------------------------------------------ | :----------------: | :-------------------------------------------------------------------------------------------- |
+| [Episode 1](https://www.twitch.tv/videos/1648201291) | From Select and JOIN to denormalized data models                                                              | November 9th 2022  |                                                                                               |
+| [Episode 2](https://www.twitch.tv/videos/1673071524) | Working with triggers and stored procedures                                                                   | December 7th 2022  | [`episode-two-code`](https://gitlab.aws.dev/estserna/ddb-twitch-show/-/tree/episode-two-code) |
+|                      Episode 3                       | Thinking NoSQL - ERD to DynamoDB model - a real world example                                                 | January 18th 2023  |                                                                                               |
+|                      Episode 4                       | Thinking NoSQL - ERD to DynamoDB model - a real world example                                                 | February 1st 2023  |                                                                                               |
+|                      Episode 5                       | Select \* FROM database where Name='DynamoDB'                                                                 | February 15th 2023 |                                                                                               |
+|                      Episode 6                       | Myth#2 DynamoDB is expensive                                                                                  |   March 1st 2023   |                                                                                               |
+|                      Episode 7                       | Purpose built database? I only need the one that works!                                                       |  March 15th 2023   |                                                                                               |
+|                      Episode 8                       | Myth#3 Distributed databases obey CAP theorem for ACID operations, I need a SQL database                      |  March 29th 2023   |                                                                                               |
+|                      Episode 9                       | Myth#4 Distributed databases, specifically key value pairs are difficult to secure                            |  April 12th 2023   |                                                                                               |
+|                      Episode 10                      | Is my data-model correct? Well, it depends...                                                                 |  April 26th 2023   |                                                                                               |
+|                      Episode 11                      | Is my data-model correct? Well, it depends... - take 2!                                                       |   May 10th 2023    |                                                                                               |
+|                      Episode 12                      | Myth#5 NoSQL and SQL databases are in the opposite way in the database spectrum, good luck migrating to NoSQL |   May 24th 2023    |                                                                                               |
+|                      Episode 13                      | Myth#5 NoSQL and SQL databases are in the opposite way in the database spectrum, good luck migrating to NoSQL |   June 7th 2023    |                                                                                               |
