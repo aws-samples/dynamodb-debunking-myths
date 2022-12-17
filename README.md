@@ -20,7 +20,7 @@
 
 Welcome to this repository, this is the official github repository that will be used to share the examples shared in the twitch series "Debunking Amazon DynamoDB Myths".
 
-In this `main` branch you will find only this Readme.md file! For each new episode that have available we will create a new branch. For example to find the code that was used during the second episode you will need to navigate to the [`episode-two-code`](https://github.com/aws-samples/dynamodb-debunking-myths/tree/episode-two-code) branch.
+In this `main` branch you will find only this Readme.md file! For each new episode that have code available we will create a new branch. For example to find the code that was used during the second episode you will need to navigate to the [`episode-two-code`](https://github.com/aws-samples/dynamodb-debunking-myths/tree/episode-two-code) branch.
 
 # Episode List
 
