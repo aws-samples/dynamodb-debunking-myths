@@ -13,14 +13,6 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTIO
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-async_lambda/app.py
-Async lambda will receive the events from DynamoDB Streams and generate real time
-aggreagations by category and subcategory for given company. This example assuemes
-3 categories are always provided.
-
-All other events are sent to a SQS for further processing, (role, menu_role and users).
-
 """
 
 import random
