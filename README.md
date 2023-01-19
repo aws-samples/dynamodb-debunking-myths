@@ -22,7 +22,7 @@ Welcome to this repository, this is the official github repository that will be 
 
 This is the branch that covers the episode two.
 
-# Episode Two - Working with triggers and Stored Procedures
+# Episode Three - Thinking NoSQL - A real world example
 
 During this episode we discussed about why developers like (and dislike) stored procedures and what are the options to process application logic with AWS. In simple terms there is no such a thing as stored procedures with Amazon DynamoDB but you have several options, lambda, fargate, ECS, EKS, EC2 your laptop, etc.
 
@@ -30,8 +30,11 @@ In this episode we also covered why is important to have a logic layer that isol
 
 We have Amazon DynamoDB Streams that enables event driven architectures and can provide the same functionality that you have with triggers in traditional SQL databases, with Amazon DynamoDB streams you can build event driven architectures.
 
-## Episode Two example - Company and products inventory use case.
+## Episode Three example - Company and products inventory use case.
 
+Let's continue our example with the company we used in the previous episode, let's imagine that whenever our inventory is too low we will trigger an SNS notification that will send an event to a queue that will process, that will Active orders, Failed or Completed
+
+, for the specific product, , but now let's imagine this is a different microservice that process orders, each store will place orders in the systems and they would need to be processed
 Remember, in our first episode, and in general with Amazon DynamoDB we always need to start from the Access patterns! That will be always step 1
 
 We have a big supermarket chain, that is monitoring product inventory on their locations, this chain is located across the country and have thousands of stores, where they move inventory constantly. The inventory system from each location is already under heavy load and management wants to keep a close eye on inventory to avoid shortages, at the same time they know they need a system to access data in real-time so they can make decisions with accurate data.

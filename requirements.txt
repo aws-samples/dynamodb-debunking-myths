@@ -1,2 +1,4 @@
 -r infrastructure/requirements.txt
 -r runtime/requirements.txt
+chalice>=1.27.3
+aws-cdk-lib==2.50.0

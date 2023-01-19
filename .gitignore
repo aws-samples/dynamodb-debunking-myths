@@ -86,4 +86,5 @@ Pipfile.lock
 junit
 .DS_Store
 infrastructure/chalice.out
+runtime/.chalice/deployments
 .vscode

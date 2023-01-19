@@ -6,5 +6,5 @@ except ImportError:
 from stacks.chaliceapp import ChaliceApp
 
 app = cdk.App()
-ChaliceApp(app, "ddb-twitch-episode-two")
+ChaliceApp(app, "ddb-twitch-episode-three")
 app.synth()
