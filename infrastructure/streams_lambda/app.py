@@ -29,7 +29,7 @@ def json_serial(obj):
     raise TypeError("Type %s not serializable" % type(obj))
 
 
-step_functions = boto3.client('stepfunctions')
+step_functions = boto3.client("stepfunctions")
 
 
 def handler(event, context):
@@ -56,6 +56,10 @@ def handler(event, context):
 
         response = step_functions.start_execution(
             stateMachineArn=os.environ["STEP_FUNCTION_ARN"],
-            input=json.dumps(step_payload, default=json_serial))
+            input=json.dumps(step_payload, default=json_serial),
+        )
 
-    return {"statusCode": 200, "result": response}
+    return {
+        "statusCode": response["ResponseMetadata"]["HTTPStatusCode"],
+        "execution_id": response["executionArn"].split(":")[-1],
+    }
