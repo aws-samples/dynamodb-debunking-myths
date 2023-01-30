@@ -29,7 +29,8 @@ from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as dynamodb,
     aws_stepfunctions as steps,
-    aws_stepfunctions_tasks as tasks)
+    aws_stepfunctions_tasks as tasks,
+)
 
 try:
     from aws_cdk import core as cdk
@@ -56,13 +57,13 @@ class ChaliceApp(cdk.Stack):
                 }
             },
         )
-        self.dynamodb_table.grant_read_write_data(
-            self.chalice.get_role("DefaultRole"))
+        self.dynamodb_table.grant_read_write_data(self.chalice.get_role("DefaultRole"))
 
         self.step_functions = self._custom_workflow(self.dynamodb_table)
 
         self.async_lambda = self._set_ddb_trigger_function(
-            self.dynamodb_table, self.step_functions)
+            self.dynamodb_table, self.step_functions
+        )
 
     def _create_ddb_table(self):
         dynamodb_table = dynamodb.Table(
@@ -87,9 +88,7 @@ class ChaliceApp(cdk.Stack):
             runtime=_lambda.Runtime.PYTHON_3_9,
             code=_lambda.Code.from_asset("streams_lambda"),
             handler="app.handler",
-            environment={
-                "STEP_FUNCTION_ARN": step_function.state_machine_arn
-            },
+            environment={"STEP_FUNCTION_ARN": step_function.state_machine_arn},
         )
 
         async_lambda.add_to_role_policy(
@@ -119,10 +118,23 @@ class ChaliceApp(cdk.Stack):
                     {
                         "Pattern": json.dumps(
                             {
-                                "eventName": ["INSERT", "MODIFY"],
+                                "eventName": ["INSERT"],
+                                "dynamodb": {
+                                    "NewImage": {"workflow_status": [{"exists": False}]}
+                                },
                             }
                         )
-                    }
+                    },
+                    {
+                        "Pattern": json.dumps(
+                            {
+                                "eventName": ["MODIFY"],
+                                "dynamodb": {
+                                    "NewImage": {"workflow_status": {"S": ["FAILED"]}}
+                                },
+                            }
+                        )
+                    },
                 ]
             },
         )
@@ -161,67 +173,91 @@ class ChaliceApp(cdk.Stack):
         self.update_lambda = self._update_function(ddb_table)
 
         start_step = steps.Pass(self, "Start Workflow")
-        wait_step = steps.Wait(self,
-                               "Wait 10 Seconds",
-                               time=steps.WaitTime.duration(Duration.seconds(15)))
+        wait_step = steps.Wait(
+            self, "Wait 10 Seconds", time=steps.WaitTime.duration(Duration.seconds(15))
+        )
 
         definition = start_step.next(
             steps.Choice(self, "Item Status")
-            .when(steps.Condition.string_equals("$.workflow_step", "NEW"),
-                  tasks.LambdaInvoke(self,
-                                     "UpdateNewLambda",
-                                     result_path="$.status",
-                                     lambda_function=self.update_lambda,
-                                     payload=steps.TaskInput.from_object({
-                                         "Keys": steps.JsonPath.object_at("$.Keys"),
-                                         "Update": {"workflow_status": "ACTIVE"},
-                                     })
-                                     )
-                  .next(wait_step)
-                  .next(tasks.LambdaInvoke(
-                      self,
-                      "Get Random Number",
-                      result_path="$.random_number",
-                      result_selector={
-                          "number_selected.$": "$.Payload.return_number"
-                      },
-                      lambda_function=self.random_lambda)
-                .next(steps.Choice(self, "Check Number Value")
-                      .when(steps.Condition.number_less_than_equals("$.random_number.number_selected", 7),
-                      tasks.LambdaInvoke(self,
-                                         "UpdateWithSuccess",
-                                         result_path="$.status",
-                                         lambda_function=self.update_lambda,
-                                         payload=steps.TaskInput.from_object({
-                                             "Keys": steps.JsonPath.object_at("$.Keys"),
-                                             "Update": {"workflow_status": "SUCCESS"},
-                                         })
-                                         ).
-                      next(steps.Pass(self, "Success!")))
-                      .when(steps.Condition.number_greater_than_equals("$.random_number.number_selected", 8),
-                      tasks.LambdaInvoke(self,
-                                         "UpdateWithFail",
-                                         result_path="$.status",
-                                         lambda_function=self.update_lambda,
-                                         payload=steps.TaskInput.from_object({
-                                             "Keys": steps.JsonPath.object_at("$.Keys"),
-                                             "Update": {"workflow_status": "FAILED"},
-                                         })
-                                         ).
-                      next(steps.Pass(self, "Failed")))
-                      )))
-            .when(steps.Condition.string_equals("$.workflow_step", "FAILED"),
-                  tasks.LambdaInvoke(self,
-                                     "UpdateRetryLambda",
-                                     result_path="$.status",
-                                     lambda_function=self.update_lambda,
-                                     payload=steps.TaskInput.from_object({
-                                         "Keys": steps.JsonPath.object_at("$.Keys"),
-                                         "Update": {"workflow_status": "ACTIVE"},
-                                         "increment": 1
-                                     })
-                                     )
-                  .next(wait_step))
+            .when(
+                steps.Condition.string_equals("$.workflow_step", "NEW"),
+                tasks.LambdaInvoke(
+                    self,
+                    "UpdateNewLambda",
+                    result_path="$.status",
+                    lambda_function=self.update_lambda,
+                    payload=steps.TaskInput.from_object(
+                        {
+                            "Keys": steps.JsonPath.object_at("$.Keys"),
+                            "Update": {"workflow_status": "ACTIVE"},
+                        }
+                    ),
+                )
+                .next(wait_step)
+                .next(
+                    tasks.LambdaInvoke(
+                        self,
+                        "Get Random Number",
+                        result_path="$.random_number",
+                        result_selector={
+                            "number_selected.$": "$.Payload.return_number"
+                        },
+                        lambda_function=self.random_lambda,
+                    ).next(
+                        steps.Choice(self, "Check Number Value")
+                        .when(
+                            steps.Condition.number_less_than_equals(
+                                "$.random_number.number_selected", 7
+                            ),
+                            tasks.LambdaInvoke(
+                                self,
+                                "UpdateWithSuccess",
+                                result_path="$.status",
+                                lambda_function=self.update_lambda,
+                                payload=steps.TaskInput.from_object(
+                                    {
+                                        "Keys": steps.JsonPath.object_at("$.Keys"),
+                                        "Update": {"workflow_status": "SUCCESS"},
+                                    }
+                                ),
+                            ).next(steps.Pass(self, "Success!")),
+                        )
+                        .when(
+                            steps.Condition.number_greater_than_equals(
+                                "$.random_number.number_selected", 8
+                            ),
+                            tasks.LambdaInvoke(
+                                self,
+                                "UpdateWithFail",
+                                result_path="$.status",
+                                lambda_function=self.update_lambda,
+                                payload=steps.TaskInput.from_object(
+                                    {
+                                        "Keys": steps.JsonPath.object_at("$.Keys"),
+                                        "Update": {"workflow_status": "FAILED"},
+                                    }
+                                ),
+                            ).next(steps.Pass(self, "Failed")),
+                        )
+                    )
+                ),
+            )
+            .when(
+                steps.Condition.string_equals("$.workflow_step", "FAILED"),
+                tasks.LambdaInvoke(
+                    self,
+                    "UpdateRetryLambda",
+                    result_path="$.status",
+                    lambda_function=self.update_lambda,
+                    payload=steps.TaskInput.from_object(
+                        {
+                            "Keys": steps.JsonPath.object_at("$.Keys"),
+                            "Update": {"workflow_status": "ACTIVE"},
+                            "increment": 1,
+                        }
+                    ),
+                ).next(wait_step),
+            )
         )
 
         return steps.StateMachine(

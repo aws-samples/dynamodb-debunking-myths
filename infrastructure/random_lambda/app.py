@@ -31,7 +31,4 @@ def handler(event, context):
             return_number: [Number] - Random number between 0 and 9
         }
     """
-    return {
-        "status_code": 200,
-        "return_number": random.randint(0, 9)
-    }
+    return {"status_code": 200, "return_number": random.randint(0, 9)}

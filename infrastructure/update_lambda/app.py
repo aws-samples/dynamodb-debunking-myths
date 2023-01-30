@@ -38,15 +38,14 @@ def handler(event, context):
         for k, v in event["Update"].items():
             print(k)
             print(v)
-            update_expression += "#"+k + " = :" + k + ", "
-            update_expression_att["#"+k] = k
-            update_epxression_att_val[":"+k] = {"S": v}
+            update_expression += "#" + k + " = :" + k + ", "
+            update_expression_att["#" + k] = k
+            update_epxression_att_val[":" + k] = {"S": v}
 
         if "increment" in event:
             update_expression += "#attempts = #attempts + :attempts"
             update_expression_att["#attempts"] = "attempts"
-            update_epxression_att_val[":attempts"] = {
-                "N": str(event["increment"])}
+            update_epxression_att_val[":attempts"] = {"N": str(event["increment"])}
         else:
             update_expression = update_expression[:-2]
 
@@ -55,9 +54,9 @@ def handler(event, context):
             Key=event["Keys"],
             UpdateExpression=update_expression,
             ExpressionAttributeNames=update_expression_att,
-            ExpressionAttributeValues=update_epxression_att_val
+            ExpressionAttributeValues=update_epxression_att_val,
         )
-        # return response
+
         return {"statusCode": 200, "result": response}
     except ClientError as e:
 
@@ -69,15 +68,14 @@ def handler(event, context):
             for k, v in event["Update"].items():
                 print(k)
                 print(v)
-                update_expression += "#"+k + " = :" + k + ", "
-                update_expression_att["#"+k] = k
-                update_epxression_att_val[":"+k] = {"S": v}
+                update_expression += "#" + k + " = :" + k + ", "
+                update_expression_att["#" + k] = k
+                update_epxression_att_val[":" + k] = {"S": v}
 
             if "increment" in event:
                 update_expression += "#attempts" + " = :attempts"
                 update_expression_att["#attempts"] = "attempts"
-                update_epxression_att_val[":attempts"] = {
-                    "N": str(event["increment"])}
+                update_epxression_att_val[":attempts"] = {"N": str(event["increment"])}
             else:
                 update_expression = update_expression[:-2]
 
@@ -86,11 +84,9 @@ def handler(event, context):
                 Key=event["Keys"],
                 UpdateExpression=update_expression,
                 ExpressionAttributeNames=update_expression_att,
-                ExpressionAttributeValues=update_epxression_att_val
+                ExpressionAttributeValues=update_epxression_att_val,
             )
             return {"statusCode": 200, "result": response}
 
         print(e.response["Error"]["Code"])
         return {"statusCode": 500, "result": None}
-
-# Fix this logic to make it generic and also auto-increment the values.

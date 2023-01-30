@@ -20,40 +20,21 @@
 
 Welcome to this repository, this is the official github repository that will be used to share the examples shared in the twitch series "Debunking Amazon DynamoDB Myths".
 
-This is the branch that covers the episode two.
+This is the branch that covers the episode three.
 
 # Episode Three - Thinking NoSQL - A real world example
 
-During this episode we discussed about why developers like (and dislike) stored procedures and what are the options to process application logic with AWS. In simple terms there is no such a thing as stored procedures with Amazon DynamoDB but you have several options, lambda, fargate, ECS, EKS, EC2 your laptop, etc.
+As a follow up from episode two, we learned that there is a functionality called Amazon DynamoDB Streams that enables event driven architectures very similar to triggers in traditional SQL databases. With Amazon DynamoDB streams, you can build event driven architectures.
 
-In this episode we also covered why is important to have a logic layer that isolates application logic from data logic, which helps with the code portability.
+During this episode, we discussed a very interesting use case from Amazon FinTech. It is a pattern that uses Triggers and Lambda functions to orchestrate a post processing logic using as base information the items stored in a DynamoDB table. This patter introduces asynchronous communication and lets other services such as Amazon Step Functions and AWS Lambda to do what they do best. Amazon DynamoDB is working in this scenario as a single source of truth.
 
-We have Amazon DynamoDB Streams that enables event driven architectures and can provide the same functionality that you have with triggers in traditional SQL databases, with Amazon DynamoDB streams you can build event driven architectures.
+When a new task is created, it has no attribute other than the `task_id`, this value will be enriched by the step function as the workflow progress by each step that is completed. In our scenario, we will use simulated API calls, and their responses will update the task stored in DynamoDB, allowing users to track in real time the status of any task.
 
-## Episode Three example - Company and products inventory use case.
+![Step_function](./documentation/stepfunctions_graph.svg)
 
-Let's continue our example with the company we used in the previous episode, let's imagine that whenever our inventory is too low we will trigger an SNS notification that will send an event to a queue that will process, that will Active orders, Failed or Completed
+The workflow check first if the attribute `workflow_step` is set to either `NEW` or `FAILED`. In case of a `NEW` task a lambda function will update the task in DynamoDB with the status `ACTIVE` and it will then go to a Wait state for 10 seconds. When the task status is `FAILED` this workflow will update the status to `ACTIVE` as well but it will also include an incremental attribute called `attempts` to keep track of how many times this workflow has retried the operation, this branch will also end in the Wait state.
 
-, for the specific product, , but now let's imagine this is a different microservice that process orders, each store will place orders in the systems and they would need to be processed
-Remember, in our first episode, and in general with Amazon DynamoDB we always need to start from the Access patterns! That will be always step 1
-
-We have a big supermarket chain, that is monitoring product inventory on their locations, this chain is located across the country and have thousands of stores, where they move inventory constantly. The inventory system from each location is already under heavy load and management wants to keep a close eye on inventory to avoid shortages, at the same time they know they need a system to access data in real-time so they can make decisions with accurate data.
-
-This system will be used by the company to order different products as inventory requires it, given the size and the nature of this company there will be many users that will interact with the system to place orders or update the inventory, there will be different teams allocated for different providers that might overlap product cagegories.
-
-Products are organized in category and subcategory, for example if the user wants to store a product for example the famous chocochip Happy Cookies they will be categorized as `category_1 = cookies` and `category_2 = chocochips` and product name will be stored as `Happy Cookies` with a product ID.
-
-![Products_by_category](./noqslworkbench/producs_table_products.png)
-
-You can notice we can access the company "entity" information by accessing the `#ROOT#` sort key, and we will get all the metadata about the company.
-
-The company wants to get all the products by company (in other words by store which also translates by location). In addition in some scenarios the users will require to get the information based on location and product category, even more, there is this requirement that you will need to get all the products based on a location where the category and subcategory. To understand the current trends inside the entire company management would need to understand the total of products per categories and subcagetories per location, and finally they would like to identify which companies are selling specific products.
-
-![Totals_by_category](./noqslworkbench/producs_table_totals.png)
-
-## NoSQL Workbench Sample
-
-You can access the NoSQL Workbench template in the folder `/noqslworkbench` where you will find the [final datamodel](./noqslworkbench/producs_table.png) as a picture but also the JSON file that you can import locally and play around with the datamodel for your convenience.
+This is where we Mock an API with just a simple lambda function that will return a random number from 0 to 9. If the result is lower or equal than 7, the execution result will be `SUCCESS`, if the result is 8 or 9 the execution result will be `FAILED` and this workflow will need to be executed one more time.
 
 ## Template
 
@@ -100,23 +81,40 @@ Then you can deploy your application using the CDK.
 ```shell
 $ cdk deploy
 ...
-[100%] success: Published 8aae0049a7d80580d943c3a7aec6a4b61b1ed89678310d6c86f59032db059577:current_account-current_region
-ddb-twitch-episode-two: creating CloudFormation changeset...
 
- ✅  ddb-twitch-episode-two
+Creating deployment package.
 
-✨  Deployment time: 81.39s
+✨  Synthesis time: 11.87s
+
+ddb-twitch-episode-three: building assets...
+
+[0%] start: Building bd2a120eea420303a3fa0a18757034d553b91bf8453784ef2a72a62fdaeb431e:current_account-current_region
+...
+[100%] success: Built 2d8d7430355f7ecffefd6a7c7b0a984920ad86172e74af0da472fecdcffc0020:current_account-current_region
+
+
+Do you wish to deploy these changes (y/n)? y
+ddb-twitch-episode-three: deploying...
+[0%] start: Publishing bd2a120eea420303a3fa0a18757034d553b91bf8453784ef2a72a62fdaeb431e:current_account-current_region
+...
+[100%] success: Published bd2a120eea420303a3fa0a18757034d553b91bf8453784ef2a72a62fdaeb431e:current_account-current_region
+ddb-twitch-episode-three: creating CloudFormation changeset...
+
+ ✅  ddb-twitch-episode-three
+
+✨  Deployment time: 141.73s
 
 Outputs:
-ddb-twitch-episode-two.APIHandlerArn = arn:aws:lambda:us-east-2:111122223333:function:ddb-twitch-episode-two-APIHandler-18u1O2hEph9v
-ddb-twitch-episode-two.APIHandlerName = ddb-twitch-episode-two-APIHandler-18u1O2hEph9v
-ddb-twitch-episode-two.AppTableName = ddb-twitch-episode-two-AppTable815C50BC-1GA5IH774KW83
-ddb-twitch-episode-two.EndpointURL = https://vhjtm3abja.execute-api.us-east-2.amazonaws.com/api/
-ddb-twitch-episode-two.RestAPIId = vhjtm3abja
+ddb-twitch-episode-three.APIHandlerArn = arn:aws:lambda:us-east-2:111122223333:function:ddb-twitch-episode-three-APIHandler-RMzjeGoJ7YO4
+ddb-twitch-episode-three.APIHandlerName = ddb-twitch-episode-three-APIHandler-RMzjeGoJ7YO4
+ddb-twitch-episode-three.AppTableName = ddb-twitch-episode-three-AppTable815C50BC-1XEMMP1MS1AYE
+ddb-twitch-episode-three.EndpointURL = https://0b91z1i6r3.execute-api.us-east-2.amazonaws.com/api/
+ddb-twitch-episode-three.RestAPIId = 0b91z1i6r3
 Stack ARN:
-arn:aws:cloudformation:us-east-2:111122223333:stack/ddb-twitch-episode-two/f86501e0-75ab-11ed-aedf-0a8725cb7904
+arn:aws:cloudformation:us-east-2:111122223333:stack/ddb-twitch-episode-three/4283c0d0-a0e1-11ed-9abb-02ceaa102162
 
-✨  Total time: 88.08s
+✨  Total time: 153.59s
+
 ```
 
 ## Project layout
@@ -125,47 +123,31 @@ This project template combines a CDK application and a Chalice application. Thes
 
 ## Sample Queries
 
-For the sample queries below you will need to install [httpie](https://httpie.io/) or use any other tool of your choice. Your URL can be found as Output in the CDK project twitch-episode-two-ddb.
-tree
+For the sample queries below you will need to install [httpie](https://httpie.io/) or use any other tool of your choice. Your URL can be found as Output in the CDK project `ddb-twitch-episode-three.EndpointURL`
 
 ### Example
 
-When you deploy the solution
-
-1. Create company, this company represents a location.
+1. Your objective is to create task using the HTTP REST API endpoint just created, to do this, execute a POST to
 
 ```
-http POST <ddb-twitch-episode-two.EndpointURL>company company_id=1000 company_name=SampleInc
+http POST <ddb-twitch-episode-three.EndpointURL>task task_id=100
 ```
 
-2. Create products, take note on the totals, how many you expect per category and subcategory?
+2. To retrieve the task information, run the command:
 
 ```
-http POST <ddb-twitch-episode-two.EndpointURL>company/1000/product cat_1=candy cat_2=hard product_id=1001 products=100 product_name=Mint
-
-http POST <ddb-twitch-episode-two.EndpointURL>company/1000/product cat_1=candy cat_2=soft product_id=1002 products=100 product_name=chewis
-
-http POST <ddb-twitch-episode-two.EndpointURL>company/1000/product cat_1=cookies cat_2=chocochip product_id=1003 products=110 product_name=happyCookie
-
-http POST <ddb-twitch-episode-two.EndpointURL>company/1000/product cat_1=cookies cat_2=vanillachip product_id=1004 products=100 product_name=RoundCookies
-
-http POST <ddb-twitch-episode-two.EndpointURL>company/1000/product cat_1=chocolate cat_2=chocobar product_id=1005 products=90 product_name=chocobarNow
-
-http POST <ddb-twitch-episode-two.EndpointURL>company/1000/product cat_1=chocolate cat_2=truffle product_id=1006 products=80 product_name=ChocolateCircles
+http GET <ddb-twitch-episode-three.EndpointURL>task/100
 ```
 
-3. Validate the totals with the following commands:
+```json
+{
+  "task_id": "100",
+  "updated_datetime": "2023-01-30T21:05:01.576480",
+  "workflow_status": "SUCCESS"
+}
+```
 
-```
-http GET <ddb-twitch-episode-two.EndpointURL>company/1000/totals
-```
-
-4. Get total by category or by categories
-
-```
-http GET <ddb-twitch-episode-two.EndpointURL>company/1000/category/cookies
-http GET <ddb-twitch-episode-two.EndpointURL>company/1000/category/cookies/chocochip
-```
+Now go and have a look to your step functions workflow where the magic is happening!
 
 # Contributing
 
