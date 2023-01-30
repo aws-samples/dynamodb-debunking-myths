@@ -149,6 +149,25 @@ http GET <ddb-twitch-episode-three.EndpointURL>task/100
 
 Now go and have a look to your step functions workflow where the magic is happening!
 
+# Clean-up
+
+Q - How do I delete the infrastructure that I just created?
+A - It is very simple! run the command `cdk destroy` while you are in the `/infrastructure` folder.
+Q - uh?
+A -
+
+```
+$ .../dynamodb-debunking-myths/infrastructure/cdk destroy
+
+
+Creating deployment package.
+Reusing existing deployment package.
+Are you sure you want to delete: ddb-twitch-episode-three (y/n)? y
+ddb-twitch-episode-three: destroying...
+
+ ✅  ddb-twitch-episode-three: destroyed
+```
+
 # Contributing
 
 Thank you for your interest in contributing to our project. Whether it's a bug report, new feature, correction, or additional documentation, we greatly value feedback and contributions from our community. Please revisit the [CONTRIBUTING](./CONTRIBUTING.md) file.
