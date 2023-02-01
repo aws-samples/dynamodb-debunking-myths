@@ -151,10 +151,10 @@ Now go and have a look to your step functions workflow where the magic is happen
 
 # Clean-up
 
-Q - How do I delete the infrastructure that I just created?
-A - It is very simple! run the command `cdk destroy` while you are in the `/infrastructure` folder.
-Q - uh?
-A -
+- Q - How do I delete the infrastructure that I just created?
+- A - It is very simple! run the command `cdk destroy` while you are in the `/infrastructure` folder.
+- Q - uh?
+- A -
 
 ```
 $ .../dynamodb-debunking-myths/infrastructure/cdk destroy
