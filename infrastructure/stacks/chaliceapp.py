@@ -104,7 +104,7 @@ class ChaliceApp(cdk.Stack):
         company_inserts = _lambda.CfnEventSourceMapping(
             scope=self,
             id="InsertsOnlyEventSourceMapping",
-            function_name=async_lambda.function_name,
+            function_name=async_lambd.function_name,
             event_source_arn=ddb_table.table_stream_arn,
             maximum_batching_window_in_seconds=1,
             starting_position="LATEST",
