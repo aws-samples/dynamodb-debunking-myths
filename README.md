@@ -26,7 +26,7 @@ This is the branch that covers the episode seven.
 
 In this episode we will be interviewing Chris Gillespie and Jason Hunter, since they have recently wrote a blog about how to [implement resource counters with Amazon DynamoDB](https://aws.amazon.com/blogs/database/implement-resource-counters-with-amazon-dynamodb/). At this point in the Series we are discussing how to implement certain functionalities that are often over-simplified, however when we need to think about scale and massive paralell computing there are some elements you need to consider.
 
-Chris will walk us through seven approaches for managing countersL
+Chris will walk us through seven approaches for managing counters.
 
 1. [Atomic counters](./resource_counters/1_atomic_counter.py)
 2. [Optimistic concurrency control](./resource_counters/2_occ.py)
