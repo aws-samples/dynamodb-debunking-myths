@@ -24,6 +24,7 @@ In this `main` branch you will find only this Readme.md file! For each new episo
 
 # Episode List
 
+
 |                       Episode                        | Name                                                                                                          |       Date        | Code Branch                                                                                                  |
 | :--------------------------------------------------: | :------------------------------------------------------------------------------------------------------------ | :---------------: | :----------------------------------------------------------------------------------------------------------- |
 | [Episode 1](https://www.twitch.tv/videos/1648201291) | From Select and JOIN to denormalized data models                                                              | November 9th 2022 |                                                                                                              |
