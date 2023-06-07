@@ -20,18 +20,21 @@
 
 Welcome to this repository, this is the official github repository that will be used to share the examples shared in the twitch series "Debunking Amazon DynamoDB Myths".
 
-This is the branch that covers the episode seven.
+In this `main` branch you will find only this Readme.md file! For each new episode that have code available we will create a new branch. For example to find the code that was used during the second episode you will need to navigate to the [`episode-two-code`](https://github.com/aws-samples/dynamodb-debunking-myths/tree/episode-two-code) branch.
 
-# Episode Seven - Myth #3: You can’t implement atomic counters with Amazon DynamoDB.
+# Episode List
 
-In this episode we will be interviewing Chris Gillespie and Jason Hunter, since they have recently wrote a blog about how to [implement resource counters with Amazon DynamoDB](https://aws.amazon.com/blogs/database/implement-resource-counters-with-amazon-dynamodb/). At this point in the Series we are discussing how to implement certain functionalities that are often over-simplified, however when we need to think about scale and massive paralell computing there are some elements you need to consider.
-
-Chris will walk us through seven approaches for managing counters.
-
-1. [Atomic counters](./resource_counters/1_atomic_counter.py)
-2. [Optimistic concurrency control](./resource_counters/2_occ.py)
-3. [Optimistic concurrency control with history](./resource_counters/3_occ_with_history.py)
-4. [Transaction with a client request token](./resource_counters/4_transaction.py)
-5. [Transaction with a marker item](./resource_counters/5_transaction_with_marker.py)
-6. [Counting with an item collection](./resource_counters/6_item_collection.py)
-7. [Counting with a set](./resource_counters/7_with_a_set.py)
+|                       Episode                        | Name                                                                                                          |       Date        | Code Branch                                                                                             |
+| :--------------------------------------------------: | :------------------------------------------------------------------------------------------------------------ | :---------------: | :------------------------------------------------------------------------------------------------------ |
+| [Episode 1](https://www.twitch.tv/videos/1648201291) | From Select and JOIN to denormalized data models                                                              | November 9th 2022 |                                                                                                         |
+| [Episode 2](https://www.twitch.tv/videos/1673071524) | Working with triggers and stored procedures                                                                   | December 7th 2022 | [`episode-two-code`](https://github.com/aws-samples/dynamodb-debunking-myths/tree/episode-two-code)     |
+| [Episode 3](https://www.twitch.tv/videos/1725212180) | Thinking NoSQL - ERD to DynamoDB model - a real world example                                                 | February 1st 2023 | [`episode-three-code`](https://github.com/aws-samples/dynamodb-debunking-myths/tree/episode-three-code) |
+| [Episode 4](https://www.twitch.tv/videos/1757375715) | Myth#2 DynamoDB is expensive                                                                                  |  March 1st 2023   | [`episode-four-code`](https://github.com/aws-samples/dynamodb-reports-denormalization-sample)           |
+| [Episode 5](https://www.twitch.tv/videos/1779067165) | Select \* FROM Database where Name='DynamoDB'                                                                 |  March 29th 2023  | [`episode-five-code`](https://github.com/aws-samples/dynamodb-debunking-myths/tree/episode-five-code)   |
+| [Episode 6](https://www.twitch.tv/videos/1810523556) | Purpose built database? I only need the one that works!                                                       |   May 3rd 2023    |                                                                                                         |
+|                      Episode 7                       | Myth #3: You can’t implement atomic counters with Amazon DynamoDB.                                            |   June 7th 2023   | [`episode-seven-code`](https://github.com/aws-samples/dynamodb-debunking-myths/tree/episode-seven-code) |
+|                      Episode 8                       | Myth#4 Distributed databases, specifically key value pairs are difficult to secure                            |                   |                                                                                                         |
+|                      Episode 9                       | Is my data-model correct? Wwll, it depends...                                                                 |                   |                                                                                                         |
+|                      Episode 10                      | Is my data-model correct? Well, it depends... - take 2!                                                       |                   |                                                                                                         |
+|                      Episode 11                      | Myth#5 NoSQL and SQL databases are in the opposite way in the database spectrum, good luck migrating to NoSQL |                   |                                                                                                         |
+|                      Episode 12                      | Myth#5 NoSQL and SQL databases are in the opposite way in the database spectrum, good luck migrating to NoSQL |                   |                                                                                                         |
