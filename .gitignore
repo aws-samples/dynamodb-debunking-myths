@@ -89,3 +89,6 @@ infrastructure/chalice.out
 .vscode
 **/infrastructure/chalice.out
 **/infrastructure/cdk.out
+**/runtime/.chalice/deployments
+.vscode
+
