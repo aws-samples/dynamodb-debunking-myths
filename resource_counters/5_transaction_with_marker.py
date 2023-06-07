@@ -31,6 +31,7 @@ dynamodb = boto3.client("dynamodb")
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
 
 if INIT_COUNTER:
+    print("*** Initialised the counter ***")
     response = table.put_item(Item={"pk": PK, "quantity": 21})
 
 response = dynamodb.transact_write_items(

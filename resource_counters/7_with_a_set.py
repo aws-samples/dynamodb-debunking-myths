@@ -29,8 +29,8 @@ PK = "abc123"
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
 
 if INIT_COUNTER:
-    # CREATE THE COUNTER
     # Note that DDB does not support empty sets, so we exclude that attribute
+    print("*** Initialised the counter ***")
     response = table.put_item(Item={"pk": PK, "slotsFilled": 0})
 
 token = str(uuid.uuid4())[0:4]

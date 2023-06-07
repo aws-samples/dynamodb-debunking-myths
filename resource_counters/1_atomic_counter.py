@@ -29,6 +29,7 @@ table = boto3.resource("dynamodb").Table(TABLE_NAME)
 
 if INIT_COUNTER:
     # Initialise the counter
+    print("*** Initialised the counter ***")
     response = table.put_item(Item={"pk": "abc123", "quantity": 7})
 
 # Update the counter with a threshold

@@ -29,6 +29,7 @@ PK = "abc123"
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
 
 if INIT_COUNTER:
+    print("*** Initialised the counter ***")
     response = table.put_item(Item={"pk": PK, "quantity": 4, "entityTag": ""})
 
 # OCC - GET THE COUNTER
