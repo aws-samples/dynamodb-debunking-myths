@@ -1,0 +1,683 @@
+{
+  "ModelName": "Twitch - Games",
+  "ModelMetadata": {
+    "Author": "tebanieo",
+    "DateCreated": "Mar 27, 2023, 09:32 AM",
+    "DateLastModified": "Mar 29, 2023, 12:03 PM",
+    "Description": "",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "3.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "PlanetGames",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "PK",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "SK",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "game_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "user_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "gold",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "health",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "stamina",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "strength",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "diamonds",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "item",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "status",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "usability",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "damage",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "type",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "reach",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "progress",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "power",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "bonus",
+          "AttributeType": "S"
+        }
+      ],
+      "TableFacets": [
+        {
+          "FacetName": "Player-Assets",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "PK",
+            "SortKeyAlias": "SK"
+          },
+          "TableData": [
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "ASSETS"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "gold": {
+                "S": "1000"
+              },
+              "diamonds": {
+                "S": "20"
+              },
+              "progress": {
+                "S": "43"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#oza"
+              },
+              "SK": {
+                "S": "ASSETS"
+              },
+              "user_id": {
+                "S": "oza"
+              },
+              "gold": {
+                "S": "1200"
+              },
+              "diamonds": {
+                "S": "20"
+              },
+              "progress": {
+                "S": "43"
+              }
+            }
+          ],
+          "NonKeyAttributes": ["user_id", "gold", "diamonds", "progress"],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "Status-Facet",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "PK",
+            "SortKeyAlias": "SK"
+          },
+          "TableData": [
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "STATUS"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "health": {
+                "S": "80"
+              },
+              "stamina": {
+                "S": "40"
+              },
+              "strength": {
+                "S": "46"
+              },
+              "type": {
+                "S": "Paladin"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#oza"
+              },
+              "SK": {
+                "S": "STATUS"
+              },
+              "user_id": {
+                "S": "oza"
+              },
+              "health": {
+                "S": "94"
+              },
+              "stamina": {
+                "S": "36"
+              },
+              "strength": {
+                "S": "37"
+              },
+              "type": {
+                "S": "Mage"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "user_id",
+            "health",
+            "stamina",
+            "strength",
+            "type"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "Game-ID",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "PK",
+            "SortKeyAlias": "SK"
+          },
+          "TableData": [
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "GID#1001"
+              },
+              "game_id": {
+                "S": "1001"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#oza"
+              },
+              "SK": {
+                "S": "GID#1001"
+              },
+              "game_id": {
+                "S": "1001"
+              },
+              "user_id": {
+                "S": "oza"
+              }
+            }
+          ],
+          "NonKeyAttributes": ["game_id", "user_id"],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "Inventory-Facet",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "PK",
+            "SortKeyAlias": "SK"
+          },
+          "TableData": [
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#BAG#WEAPON#SWORD#BRONZE SWORD"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Bronze Sword"
+              },
+              "status": {
+                "S": "BROKEN"
+              },
+              "usability": {
+                "S": "0"
+              },
+              "damage": {
+                "S": "10"
+              },
+              "type": {
+                "S": "Sword"
+              },
+              "reach": {
+                "S": "30"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#BAG#WEAPON#SWORD#SILVER SWORD"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Silver Sword"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "80"
+              },
+              "damage": {
+                "S": "30-40"
+              },
+              "type": {
+                "S": "Sword"
+              },
+              "reach": {
+                "S": "60"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#BAG#WEAPON#SPEAR#WINTER TRIDENT"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Winter Trident"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "60"
+              },
+              "damage": {
+                "S": "40-50"
+              },
+              "type": {
+                "S": "Spear"
+              },
+              "reach": {
+                "S": "80"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#BAG#WEAPON#MAZE#NAIL BAT"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Nail Bat"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "30"
+              },
+              "damage": {
+                "S": "23-35"
+              },
+              "type": {
+                "S": "Maze"
+              },
+              "reach": {
+                "S": "40"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#ACTIVE#HELMET#LIGHT BOX"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Light Box"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "40"
+              },
+              "damage": {
+                "S": "0"
+              },
+              "type": {
+                "S": "Helmet"
+              },
+              "reach": {
+                "S": "1"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#ACTIVE#RINGS#R1"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Emerald Forest Ring"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "100"
+              },
+              "power": {
+                "S": "100"
+              },
+              "bonus": {
+                "S": "Strenght +5"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#ACTIVE#RINGS#R2"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Amber Fire Ring"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "98"
+              },
+              "power": {
+                "S": "100"
+              },
+              "bonus": {
+                "S": "Strenght +10"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#ACTIVE#RINGS#R3"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Opal Angelical Ring"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "97"
+              },
+              "power": {
+                "S": "90"
+              },
+              "bonus": {
+                "S": "Healing +5"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#ACTIVE#RINGS#R4"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Golden Ring"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "89"
+              },
+              "power": {
+                "S": "80"
+              },
+              "bonus": {
+                "S": "Stamin +4"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#ACTIVE#RINGS#R5"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Silver Ring Ring"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "100"
+              },
+              "power": {
+                "S": "90"
+              },
+              "bonus": {
+                "S": "Stamina +1"
+              }
+            },
+            {
+              "PK": {
+                "S": "UID#tebanieo"
+              },
+              "SK": {
+                "S": "INVENTORY#ACTIVE#RINGS#R6"
+              },
+              "user_id": {
+                "S": "tebanieo"
+              },
+              "item": {
+                "S": "Ruby Blood Ring"
+              },
+              "status": {
+                "S": "BAG"
+              },
+              "usability": {
+                "S": "100"
+              },
+              "power": {
+                "S": "100"
+              },
+              "bonus": {
+                "S": "Damage +25"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "user_id",
+            "item",
+            "status",
+            "usability",
+            "damage",
+            "type",
+            "reach",
+            "power",
+            "bonus"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "PK": {
+            "S": "SID#blue-montain"
+          },
+          "SK": {
+            "S": "ITEMS#POTIONS#HEALING_MEGA"
+          },
+          "gold": {
+            "S": "100"
+          },
+          "health": {
+            "S": "1000"
+          },
+          "diamonds": {
+            "S": "1"
+          },
+          "item": {
+            "S": "Mega Potion"
+          }
+        },
+        {
+          "PK": {
+            "S": "SID#blue-montain"
+          },
+          "SK": {
+            "S": "ITEMS#POTIONS#HEALING_NORMAL"
+          },
+          "gold": {
+            "S": "50"
+          },
+          "health": {
+            "S": "100"
+          },
+          "diamonds": {
+            "S": "1"
+          },
+          "item": {
+            "S": "Normal Potion"
+          }
+        },
+        {
+          "PK": {
+            "S": "SID#blue-montain"
+          },
+          "SK": {
+            "S": "ITEMS#POTIONS#STAMINA_NORMAL"
+          },
+          "gold": {
+            "S": "100"
+          },
+          "stamina": {
+            "S": "100"
+          },
+          "diamonds": {
+            "S": "1"
+          },
+          "item": {
+            "S": "Normal Stamina Recovery"
+          }
+        },
+        {
+          "PK": {
+            "S": "SID#blue-montain"
+          },
+          "SK": {
+            "S": "ITEMS#STONES#RUBY"
+          },
+          "gold": {
+            "S": "1000"
+          },
+          "item": {
+            "S": "Ruby"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    }
+  ]
+}
