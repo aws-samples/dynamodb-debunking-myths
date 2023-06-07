@@ -19,11 +19,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 import boto3
 import uuid
+import sys
 
 TABLE_NAME = "pk-only"
-INIT_COUNTER = False
+INIT_COUNTER = len( sys.argv ) < 2
 PK = "abc123"
-CRT_VALUE = "example4"
+CRT_VALUE = 'example4' if len(sys.argv) < 2 else sys.argv[1]
 
 dynamodb = boto3.client("dynamodb")
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
@@ -52,3 +53,4 @@ response = dynamodb.transact_write_items(
 counter = table.get_item(Key={"pk": PK})
 
 print(counter["Item"])
+

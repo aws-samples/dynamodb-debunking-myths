@@ -19,16 +19,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 import boto3
+import sys
 
 TABLE_NAME = "pk-only"
-INIT_COUNTER = True
+INIT_COUNTER = len( sys.argv ) < 2
 PK = "abc123"
 
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
 
 if INIT_COUNTER:
     # Initialise the counter
-    response = table.put_item(Item={"pk": "abc123", "quantity": 3})
+    response = table.put_item(Item={"pk": "abc123", "quantity": 7})
 
 # Update the counter with a threshold
 response = table.update_item(
@@ -42,3 +43,4 @@ response = table.update_item(
 counterValue = response["Attributes"]
 
 print(counterValue)
+

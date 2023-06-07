@@ -20,9 +20,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import boto3
 import uuid
+import sys
 
 TABLE_NAME = "pk-only"
-INIT_COUNTER = True
+INIT_COUNTER = len( sys.argv ) < 2
 PK = "abc123"
 
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
@@ -57,3 +58,4 @@ response = table.update_item(
 counterValue = response["Attributes"]
 
 print(counterValue)
+

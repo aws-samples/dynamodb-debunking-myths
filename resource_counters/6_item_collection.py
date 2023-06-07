@@ -20,12 +20,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import boto3
 import time
+import random
 
 TABLE_NAME = "pk-and-sk"
 PK = "customer1-balance"
 
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
 
-response = table.put_item(Item={"pk": PK, "sk": str(time.time), "quantity": 3})
+value = random.randint(1,50)
+response = table.put_item(Item={"pk": PK, "sk": str(int(time.time())), "quantity": value})
 
-print(response)
+print(value)
