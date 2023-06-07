@@ -86,8 +86,9 @@ Pipfile.lock
 junit
 .DS_Store
 infrastructure/chalice.out
-runtime/.chalice/deployments
 .vscode
-# Only for this Main branch
-infrastructure
-runtime
+**/infrastructure/chalice.out
+**/infrastructure/cdk.out
+**/runtime/.chalice/deployments
+.vscode
+
