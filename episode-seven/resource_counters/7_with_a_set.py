@@ -23,7 +23,7 @@ import uuid
 import sys
 
 TABLE_NAME = "pk-only"
-INIT_COUNTER = len( sys.argv ) < 2
+INIT_COUNTER = len(sys.argv) < 2
 PK = "abc123"
 
 table = boto3.resource("dynamodb").Table(TABLE_NAME)
@@ -33,23 +33,30 @@ if INIT_COUNTER:
     print("*** Initialised the counter ***")
     response = table.put_item(Item={"pk": PK, "slotsFilled": 0})
 
-token = str(uuid.uuid4())[0:4]
+try:
+    token = str(uuid.uuid4())[0:4]
+    print("Adding token " + token)
 
-# ATOMIC COUNTER
-response = table.update_item(
-    Key={"pk": PK},
-    UpdateExpression="ADD tokens :token, slotsFilled :change",
-    ConditionExpression="attribute_not_exists(tokens) OR (size(tokens) < :maxsize AND NOT contains(tokens, :tokenstr))",
-    ExpressionAttributeValues={
-        ":token": set([token]),
-        ":tokenstr": token,
-        ":maxsize": 50,
-        ":change": 1,
-    },
-    ReturnValues="UPDATED_NEW",
-)
+    # ATOMIC COUNTER
+    response = table.update_item(
+        Key={"pk": PK},
+        UpdateExpression="ADD tokens :token, slotsFilled :change",
+        ConditionExpression="attribute_not_exists(tokens) OR (size(tokens) < :maxsize AND NOT contains(tokens, :tokenstr))",
+        ExpressionAttributeValues={
+            ":token": set([token]),
+            ":tokenstr": token,
+            ":maxsize": 3,
+            ":change": 1,
+        },
+        ReturnValuesOnConditionCheckFailure="ALL_OLD",
+        ReturnValues="ALL_NEW",
+    )
 
-counterValue = response["Attributes"]
+    counterValue = response["Attributes"]
+    print(counterValue)
 
-print(counterValue)
+# demo the handling of the "ALL_OLD" ReturnValuesOnConditionCheckFailure feature. Could save a GetItem request
+except table.meta.client.exceptions.ConditionalCheckFailedException as e:
+    print("Adding token failed due to condition check.")
+    print(e.response['Item'])
 
