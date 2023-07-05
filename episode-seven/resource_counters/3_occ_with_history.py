@@ -37,7 +37,6 @@ current = table.get_item(Key={"pk": PK})
 
 currentValue = current["Item"]["quantity"]
 currentEntityTagValue = current["Item"]["entityTag"]
-str(uuid.uuid4())[0:8]
 newEntityTag = [currentEntityTagValue, str(uuid.uuid4())[0:8]]
 if "" in newEntityTag:
     newEntityTag.remove("")
