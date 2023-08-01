@@ -97,15 +97,7 @@ class DdbPermissionsLabStack(Stack):
                         },
                         "StringEquals": {"dynamodb:Select": "SPECIFIC_ATTRIBUTES"},
                     },
-                ),
-                iam.PolicyStatement(
-                    effect=iam.Effect.DENY,
-                    resources=[ddb_table.table_arn],
-                    actions=["dynamodb:*"],
-                    conditions={
-                        "StringNotEquals": {"aws:sourceVpce": "vpce-0e39b501c409599f5"}
-                    },
-                ),
+                )
             ],
         )
         scan_lambda.role.attach_inline_policy(dynamodb_policy)
