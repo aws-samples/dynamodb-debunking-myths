@@ -1,0 +1,7 @@
+aws-cdk-lib==2.88.0
+aws-cdk.asset-awscli-v1==2.2.200
+aws-cdk.asset-kubectl-v20==2.1.2
+aws-cdk.asset-node-proxy-agent-v5==2.0.166
+aws-lambda-powertools==1.30.0
+aws-solutions-constructs.aws-lambda-dynamodb==2.41.0
+aws-solutions-constructs.core==2.41.0
