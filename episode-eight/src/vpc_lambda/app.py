@@ -20,8 +20,8 @@ import boto3
 import json
 from botocore.exceptions import ClientError
 
-dynamodb = boto3.resource("dynamodb")
-dynamodb_table = dynamodb.Table(os.environ.get("DDB_TABLE_NAME", ""))
+# dynamodb = boto3.resource("dynamodb")
+# dynamodb_table = dynamodb.Table(os.environ.get("DDB_TABLE_NAME", ""))
 dynamodb_client = boto3.client("dynamodb")
 
 
