@@ -21,7 +21,7 @@ from botocore.exceptions import ClientError
 
 dynamodb = boto3.resource("dynamodb")
 cf_client = boto3.client("cloudformation")
-stackname = "DdbPermissionsLabStack"
+stackname = "debunking-myths-episode-8"
 table_name = ""
 
 try:
@@ -44,7 +44,6 @@ if table_name:
         customers = json.load(file)
 
     with table.batch_writer() as batch:
-
         for item in customers:
             record = {}
             record["PK"] = item["user_name"]

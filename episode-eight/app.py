@@ -7,5 +7,5 @@ from ddb_permissions_lab.ddb_permissions_lab_stack import DdbPermissionsLabStack
 
 
 app = cdk.App()
-DdbPermissionsLabStack(app, "DdbPermissionsLabStack")
+DdbPermissionsLabStack(app, "debunking-myths-episode-8")
 app.synth()
