@@ -69,38 +69,7 @@ class DdbPermissionsLabStack(Stack):
             timeout=Duration.seconds(300),
         )
         # grant full access to the dynamodb table ddb_table
-        # ddb_table.grant_full_access(scan_lambda)
-
-        # Provides read only access to the table
-        # ddb_table.grant_read_data(scan_lambda)
-
-        # Provides query only acces to the dynamodb table
-        dynamodb_policy = iam.Policy(
-            self,
-            "ddb-policy",
-            statements=[
-                iam.PolicyStatement(
-                    effect=iam.Effect.ALLOW,
-                    resources=[ddb_table.table_arn],
-                    actions=["dynamodb:Query"],
-                    conditions={
-                        "DateGreaterThan": {"aws:CurrentTime": "2023-08-01T00:00:00Z"},
-                        "DateLessThan": {"aws:CurrentTime": "2023-08-30T23:59:00Z"},
-                        "ForAllValues:StringEquals": {
-                            "dynamodb:Attributes": [
-                                "PK",
-                                "SK",
-                                "date_time",
-                                "status",
-                                "trip_id",
-                            ]
-                        },
-                        "StringEquals": {"dynamodb:Select": "SPECIFIC_ATTRIBUTES"},
-                    },
-                )
-            ],
-        )
-        scan_lambda.role.attach_inline_policy(dynamodb_policy)
+        ddb_table.grant_full_access(scan_lambda)
 
         return scan_lambda
 
@@ -112,20 +81,3 @@ class DdbPermissionsLabStack(Stack):
 
         # Creates the Lambda function that will execute the code.
         self._scan_lambda(ddb_table)
-
-        code_in_vpc = LambdaToDynamoDB(
-            self,
-            "LambdaInsideVPC",
-            lambda_function_props=_lambda.FunctionProps(
-                runtime=_lambda.Runtime.PYTHON_3_9,
-                code=_lambda.Code.from_asset("src/vpc_lambda"),
-                handler="app.handler",
-                environment={
-                    "DDB_TABLE_NAME": ddb_table.table_name,
-                    "STREAM_ARN": ddb_table.table_stream_arn,
-                },
-                timeout=Duration.seconds(30),
-            ),
-            existing_table_obj=ddb_table,
-            deploy_vpc=True,
-        )
