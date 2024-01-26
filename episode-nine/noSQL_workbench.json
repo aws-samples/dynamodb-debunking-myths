@@ -1,0 +1,763 @@
+{
+  "ModelName": "Twitch - Widget Service",
+  "ModelMetadata": {
+    "Author": "Richard Krog",
+    "DateCreated": "Sep 06, 2023, 11:09 AM",
+    "DateLastModified": "Sep 06, 2023, 11:42 AM",
+    "Description": "Edited by Esteban Serna",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "3.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "Widgets_V1",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "Widget_Id",
+          "AttributeType": "N"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "Customer_Id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Insert_Date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "State",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Telemetry",
+          "AttributeType": "B"
+        }
+      ],
+      "TableData": [
+        {
+          "Widget_Id": {
+            "N": "1750"
+          },
+          "Customer_Id": {
+            "S": "0071"
+          },
+          "Insert_Date": {
+            "S": "2023-09-01 04:37:31"
+          },
+          "State": {
+            "S": "PENDING"
+          },
+          "Telemetry": {
+            "B": "mMhBLkcFk25..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "N": "4614"
+          },
+          "Customer_Id": {
+            "S": "0933"
+          },
+          "Insert_Date": {
+            "S": "2023-09-01 12:59:55"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Telemetry": {
+            "B": "yqufqqr9xNSV..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "N": "1331"
+          },
+          "Customer_Id": {
+            "S": "0508"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 21:09:19"
+          },
+          "State": {
+            "S": "PENDING"
+          },
+          "Telemetry": {
+            "B": "rC0v0bBgkCN..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "N": "428"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 08:48:58"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Telemetry": {
+            "B": "x/4pvDTq/ZR..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "N": "3721"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 11:15:39"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Telemetry": {
+            "B": "o7ctsL+JJAu..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "N": "4719"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "Insert_Date": {
+            "S": "2023-09-01 08:55:39"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Telemetry": {
+            "B": "TE64USGK/..."
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "Widgets_V2",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "Customer_Id",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "Widget_Id",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "Insert_Date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "State",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Telemetry",
+          "AttributeType": "S"
+        }
+      ],
+      "TableData": [
+        {
+          "Customer_Id": {
+            "S": "0853"
+          },
+          "Widget_Id": {
+            "S": "24f87b9abf4f"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 08:27:43"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Telemetry": {
+            "S": "3ipzSdXyKR..."
+          }
+        },
+        {
+          "Customer_Id": {
+            "S": "0853"
+          },
+          "Widget_Id": {
+            "S": "9c9b3a0e03b1"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 17:08:43"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Telemetry": {
+            "S": "8rf7dp4JoQr..."
+          }
+        },
+        {
+          "Customer_Id": {
+            "S": "0853"
+          },
+          "Widget_Id": {
+            "S": "a5f0ff4454a4"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 16:22:10"
+          },
+          "State": {
+            "S": "PENDING"
+          },
+          "Telemetry": {
+            "S": "R8AxaZnjT3O..."
+          }
+        },
+        {
+          "Customer_Id": {
+            "S": "0853"
+          },
+          "Widget_Id": {
+            "S": "f966563e547f"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 02:07:17"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Telemetry": {
+            "S": "vqMSYoHO7H..."
+          }
+        },
+        {
+          "Customer_Id": {
+            "S": "0678"
+          },
+          "Widget_Id": {
+            "S": "0844a5d52e3e"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 20:32:17\""
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Telemetry": {
+            "S": "+I6TjdjrsEQZ..."
+          }
+        },
+        {
+          "Customer_Id": {
+            "S": "0678"
+          },
+          "Widget_Id": {
+            "S": "46b5c88584e6"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 08:32:18"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Telemetry": {
+            "S": "EJqAmFP9Tj1f..."
+          }
+        },
+        {
+          "Customer_Id": {
+            "S": "0678"
+          },
+          "Widget_Id": {
+            "S": "6d3dad5563be"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 04:38:29"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Telemetry": {
+            "S": "J8/kcDuQDDp..."
+          }
+        },
+        {
+          "Customer_Id": {
+            "S": "0678"
+          },
+          "Widget_Id": {
+            "S": "8246656efc0c"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 04:14:21"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Telemetry": {
+            "S": "3f2jjLZcU13..."
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "Widgets_V3",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "Widget_Id",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "Customer_Id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "State",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Insert_Date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Telemetry",
+          "AttributeType": "S"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "Customer_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "Customer_Id",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "State",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "Widget_Id": {
+            "S": "479d203bb85f"
+          },
+          "Customer_Id": {
+            "S": "0777"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 20:12:55"
+          },
+          "Telemetry": {
+            "S": "LjRu/VNLEM..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "2c79909cbd71"
+          },
+          "Customer_Id": {
+            "S": "0122"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 21:13:28"
+          },
+          "Telemetry": {
+            "S": "pBTi3tr98Uhg..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "15e2fc20fc3d"
+          },
+          "Customer_Id": {
+            "S": "0989"
+          },
+          "State": {
+            "S": "PENDING"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 08:28:41"
+          },
+          "Telemetry": {
+            "S": "lhOfRkRTPY..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "53e76fbeaa0b"
+          },
+          "Customer_Id": {
+            "S": "0216"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Insert_Date": {
+            "S": "2023-09-01 12:20:12"
+          },
+          "Telemetry": {
+            "S": "1Md7CYcReO..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "edd3d3e02fbf"
+          },
+          "Customer_Id": {
+            "S": "0316"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 19:28:21"
+          },
+          "Telemetry": {
+            "S": "YuvhKTTccPZc.."
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "cf3290cc3713"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 15:08:41"
+          },
+          "Telemetry": {
+            "S": "vJ4sxPYtSia2a..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "d7ff094b97db"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 24:04:57"
+          },
+          "Telemetry": {
+            "S": "wrbqBkDz81jc..."
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "4f90b1bb56cd"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 02:17:47"
+          },
+          "Telemetry": {
+            "S": "my/Pr1jS9ulJ..."
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "Widgets_V4",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "Widget_Id",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "Customer_Id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "State",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Insert_Date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Telemetry",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "State_Insert_Date",
+          "AttributeType": "S"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "Customer_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "Customer_Id",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "State_Insert_Date",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "Widget_Id": {
+            "S": "0a881be72e1d"
+          },
+          "Customer_Id": {
+            "S": "0876"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Insert_Date": {
+            "S": "2023-09-01 18:18:34"
+          },
+          "Telemetry": {
+            "S": "XEIMqLxlIN..."
+          },
+          "State_Insert_Date": {
+            "S": "ACTIVE#2023-09-01 18:18:34"
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "9faba2cdd8fc"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Insert_Date": {
+            "S": "2023-09-03 01:00:10"
+          },
+          "Telemetry": {
+            "S": "J6S7PAj930a..."
+          },
+          "State_Insert_Date": {
+            "S": "TERMINATED#2023-09-03 01:00:10"
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "48128a26f0e5"
+          },
+          "Customer_Id": {
+            "S": "0123"
+          },
+          "State": {
+            "S": "TERMINATED"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 21:35:59"
+          },
+          "Telemetry": {
+            "S": "8mQtO0T8..."
+          },
+          "State_Insert_Date": {
+            "S": "TERMINATED#2023-09-02 21:35:59"
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "09e2697acd30"
+          },
+          "Customer_Id": {
+            "S": "0705"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Insert_Date": {
+            "S": "2023-09-02 14:49:37"
+          },
+          "Telemetry": {
+            "S": "T9i1dWMOfj3.."
+          },
+          "State_Insert_Date": {
+            "S": "ACTIVE#2023-09-02 14:49:37"
+          }
+        },
+        {
+          "Widget_Id": {
+            "S": "b09e0eadef16"
+          },
+          "Customer_Id": {
+            "S": "0085"
+          },
+          "State": {
+            "S": "ACTIVE"
+          },
+          "Insert_Date": {
+            "S": "2023-09-01 05:03:37"
+          },
+          "Telemetry": {
+            "S": "OG5H3tESjfl..."
+          },
+          "State_Insert_Date": {
+            "S": "ACTIVE#2023-09-01 05:03:37"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    }
+  ]
+}
